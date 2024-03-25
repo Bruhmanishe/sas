@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="eng">
+  <head>
+    <title>Site</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      a[href = "https://google.com"] ~ p
+      {
+        background-color: yellow;
+      }
+
+      a[href = "https://www.africau.edu/images/default/sample.pdf"] + p
+      {
+        background-color: yellow;
+      }
+
+      form > ul > li:nth-last-child(-n + 3)::after {
+        content: "EXCLUSIVE!";
+        color: red;
+      }
+
+      input:not([type="number"]) + p {
+        background-color: grey;
+      }
+
+      .btn {
+        height: 60px;
+        width: 60px;
+        font-size: 11px;
+        padding: 0.5px;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <h2>GOOGLE</h2>
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum,
+        obcaecati.
+      </p>
+      <a href="https://google.com">Google me!</a>
+      <p>
+        Possimus nesciunt commodi harum nulla incidunt dolorum itaque asperiores
+        labore quaerat blanditiis
+      </p>
+      <p>
+        Ipsam incidunt laboriosam nostrum culpa amet, exercitationem dolor
+        veniam asperiores distinctio
+      </p>
+    </section>
+    <section>
+      <h2>PDF</h2>
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum,
+        obcaecati.
+      </p>
+      <a href="https://www.africau.edu/images/default/sample.pdf"
+        >Link to pdf</a
+      >
+      <p>
+        Possimus nesciunt commodi harum nulla incidunt dolorum itaque asperiores
+        labore quaerat blanditiis
+      </p>
+      <p>
+        Ipsam incidunt laboriosam nostrum culpa amet, exercitationem dolor
+        veniam asperiores
+      </p>
+    </section>
+    <section>
+      <h2>INFO</h2>
+      <ul>
+        <li>Lorem, ipsum.</li>
+        <li>Totam, voluptatum!</li>
+      </ul>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, ut?
+      </p>
+      <form action="">
+        <ul>
+          <li>Lorem, ipsum.</li>
+          <li>Totam, voluptatum!</li>
+          <li>Iusto, odio?</li>
+          <li>Incidunt, consequatur!</li>
+          <li>Ipsa, itaque.</li>
+          <li>Libero, tenetur.</li>
+          <li>Et, assumenda.</li>
+          <li>Adipisci, rem?</li>
+        </ul>
+        <input type="checkbox" id="policy" name="policy" />
+        <label for="policy"> I have read the policy</label><br /><br />
+        <input type="submit" value="Submit" />
+      </form>
+    </section>
+    <section>
+      <h2>FEEDBACK</h2>
+      <input type="text" name="firstName" placeholder="First Name" />
+      <p>
+        Possimus nesciunt commodi harum nulla incidunt dolorum itaque asperiores
+        labore quaerat
+      </p>
+      <input type="number" name="age" placeholder="Age" />
+      <p>
+        Ipsam incidunt laboriosam nostrum culpa amet, exercitationem dolor
+        veniam asperiores
+      </p>
+      <input type="tel" name="phone" placeholder="Phone number" />
+      <p>
+        Ipsam incidunt laboriosam nostrum culpa amet, exercitationem dolor
+        veniam asperiores
+      </p>
+    </section>
+    <script>
+      "use strict";
+
+      const body = document.body;
+      const sections = document.querySelectorAll("section");
+      console.log(sections[0].children[0]);
+      let googleSect;
+      let pdfSect;
+      let infoSect;
+      let feedBackSection;
+      for (let i = 0; sections.length > i; i++) {
+        let h = sections[i].children[0];
+        if (h.textContent == "GOOGLE") {
+          googleSect = sections[i];
+        }
+        if (h.textContent == "PDF") {
+          pdfSect = sections[i];
+        }
+        if (h.textContent == "INFO") {
+          infoSect = sections[i];
+        }
+        if (h.textContent == "FEEDBACK") {
+          feedBackSection = sections[i];
+        }
+      }
+
+      function summonBtns() {
+        const p = document.createElement("p");
+        p.textContent = "Lorem dorum porum ipsus!";
+        const li = document.createElement("li");
+        li.textContent = "Lorem dorum porum ipsus!";
+
+        const btnGoogleSect = document.createElement("button");
+        const btnPdfSect = document.createElement("button");
+        const btnInfoSect = document.createElement("button");
+        const btnChangePos = document.createElement("button");
+        let addBtns = [btnGoogleSect, btnPdfSect, btnInfoSect, btnChangePos];
+        let d = 70;
+        btnGoogleSect.textContent = 'Add P to "GOOGLE" section';
+        btnGoogleSect.setAttribute("id", "addPToGoogleSect");
+
+        btnPdfSect.textContent = 'Add P to "PDF" section';
+        btnPdfSect.setAttribute("id", "addPToPdfSect");
+
+        btnInfoSect.textContent = 'Add li to "GOOGLE" section';
+        btnInfoSect.setAttribute("id", "addPToInfoSect");
+
+        btnChangePos.textContent = "Change Sections position";
+        btnChangePos.setAttribute("id", "changePos");
+
+        for (let i = 0; addBtns.length > i; i++) {
+          d += 70;
+          body.insertAdjacentElement("beforebegin", addBtns[i]);
+          addBtns[i].style.position = "fixed";
+          addBtns[i].style.left = `${d}px`;
+          addBtns[i].style.top = `1%`;
+          addBtns[i].classList.add("btn");
+        }
+
+        addBtns.forEach((el) =>
+          el.addEventListener("mousedown", (e) => {
+            if (e.target == addBtns[0]) {
+              for (let i = 0; googleSect.children.length > i; i++) {
+                if (googleSect.children[i].hasAttribute("href")) {
+                  googleSect.insertBefore(p, googleSect.children[i + 3]);
+                }
+              }
+            }
+            if (e.target == addBtns[1]) {
+              for (let i = 0; pdfSect.children.length > i; i++) {
+                if (pdfSect.children[i].hasAttribute("href")) {
+                  pdfSect.insertBefore(p, pdfSect.children[i + 1]);
+                }
+              }
+            }
+            if (e.target == addBtns[2]) {
+              for (let i = 0; infoSect.children.length > i; i++) {
+                for (let j = 0; infoSect.children[i].length > j; j++) {
+                  if (
+                    infoSect.children[i].children[j] ==
+                    document.querySelector("section > form > ul")
+                  ) {
+                    if (infoSect.children[i].children[j].contains(li)) {
+                      addBtns[2].addEventListener(
+                        "mouseup",
+                        function remove(e) {
+                          infoSect.children[i].children[j].removeChild(li);
+                          addBtns[2].addEventListener("mousedown", (e) => {
+                            addBtns[2].removeEventListener("mouseup", remove);
+                          });
+                        }
+                      );
+                    } else {
+                      infoSect.children[i].children[j].appendChild(li);
+                    }
+                  }
+                }
+              }
+            }
+            if (e.target == addBtns[3]) {
+              let posOne = Math.round(Math.random() * 4);
+              let posTwo = Math.round(Math.random() * 4);
+              let posThree = Math.round(Math.random() * 4);
+              let posFour = Math.round(Math.random() * 4);
+
+              googleSect.style.order = `${posOne}`;
+              pdfSect.style.order = `${posTwo}`;
+              infoSect.style.order = `${posThree}`;
+              feedBackSection.style.order = `${posFour}`;
+            }
+          })
+        );
+      }
+
+      window.addEventListener("load", summonBtns);
+    </script>
+  </body>
+</html>
